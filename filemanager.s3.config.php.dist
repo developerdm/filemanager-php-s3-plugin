@@ -8,6 +8,8 @@
  * @author	Wil Moore III <wmoore@net-results.com>
  */
 
+require_once realpath(__DIR__ . '/AWSSDKforPHP/sdk-1.5.0/sdk.class.php');
+
 /*******************************************************************************
  * Credentials
  ******************************************************************************/
@@ -42,6 +44,11 @@ $config['create-root-dir']    = true;
  * S3 bucket name (REQUIRED) [default = '']
  */
 $config['s3-bucket']          = 'filesmanager';
+
+/**
+ * S3 region name [default = AmazonS3::REGION_VIRGINIA]
+ */
+$config['s3-region']          = AmazonS3::REGION_OREGON;
 
 /**
  * Public DNS name (REQUIRED) [default = null]

@@ -8,8 +8,6 @@
  * @author	Wil Moore III <wmoore@net-results.com>
  */
 
-require_once realpath(__DIR__ . '/AWSSDKforPHP/sdk-1.5.0/sdk.class.php');
-
 /**
  * Filemanager plugin for S3
  *
@@ -50,6 +48,13 @@ class FilemanagerS3 extends Filemanager {
    * @var string
    */
   protected $bucket           = null;
+  
+  /**
+   * amazon s3 Region
+   *
+   * @var string
+   */
+  protected $region           = AmazonS3::REGION_VIRGINIA;
 
   /**
    * public domain
@@ -171,6 +176,10 @@ class FilemanagerS3 extends Filemanager {
     $this->bucket         = isset($config['s3-bucket'])
                           ? $config['s3-bucket']
                           : $this->bucket;
+    
+    $this->region         = isset($config['s3-region'])
+                          ? $config['s3-region']
+                          : $this->bucket;
 
     $this->rootDirectory  = isset($config['doc_root'])
                           ? trim($config['doc_root'], '/ ')
@@ -212,6 +221,8 @@ class FilemanagerS3 extends Filemanager {
 
     // Instantiate the AmazonS3 class (we should probably be injecting this)
     $this->s3 = new AmazonS3();
+    
+    $this->s3->set_region($$this->region);
 
     // if we are in debug mode put the http-client into debug mode
     $this->s3->enable_debug_mode($this->debug);
