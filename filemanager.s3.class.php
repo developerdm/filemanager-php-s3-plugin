@@ -179,7 +179,7 @@ class FilemanagerS3 extends Filemanager {
     
     $this->region         = isset($config['s3-region'])
                           ? $config['s3-region']
-                          : $this->bucket;
+                          : $this->region;
 
     $this->rootDirectory  = isset($config['doc_root'])
                           ? trim($config['doc_root'], '/ ')
@@ -222,7 +222,7 @@ class FilemanagerS3 extends Filemanager {
     // Instantiate the AmazonS3 class (we should probably be injecting this)
     $this->s3 = new AmazonS3();
     
-    $this->s3->set_region($$this->region);
+    $this->s3->set_region($this->region);
 
     // if we are in debug mode put the http-client into debug mode
     $this->s3->enable_debug_mode($this->debug);
